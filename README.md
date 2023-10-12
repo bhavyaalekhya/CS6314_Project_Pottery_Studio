@@ -33,4 +33,3 @@ Pages:
 5.	Wishlist Page
 6.	Cart Page
 7.	Purchase History
-![image](https://github.com/aditiraoka/CS6314_Final_Project/assets/69102364/576f2fba-48f7-49e9-8a14-96b5a54ad7d9)
