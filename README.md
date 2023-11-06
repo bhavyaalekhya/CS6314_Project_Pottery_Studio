@@ -7,7 +7,6 @@ React with Bootstrap
 
 React: 
 Net Ninja: https://youtube.com/playlist?list=PL4cUxeGkcC9gZD-Tvwfod2gaISzfRiP9d&si=uLrYugveTLsiaS1L
-
 Codevolution: https://youtube.com/playlist?list=PLC3y8-rFHvwgg3vaYJgHGnModB54rxOk3&si=5hBo7J0J_i3cdaRx
 
 Pages:
@@ -33,3 +32,10 @@ Pages:
 5.	Wishlist Page
 6.	Cart Page
 7.	Purchase History
+
+
+##To-Do
+Meeting 11/06/23:
+1. Create a naming convention/skeletal rule page
+2. Assign pages/topics to individuals.
+3. Create a basic homepage using react (by this weekend)
