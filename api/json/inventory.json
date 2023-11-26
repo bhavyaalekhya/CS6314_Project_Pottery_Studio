@@ -1,0 +1,36 @@
+[
+    {
+      "productId": 1,
+      "description": "Beautiful handcrafted ceramic vase",
+      "name": "Artisan Vase",
+      "count": 10,
+      "type": "Vase",
+      "image": {
+        "path": "../public/images/vase1.jpg",
+        "description": "Image of the Artisan Vase"
+      }
+    },
+    {
+      "productId": 2,
+      "description": "Set of four rustic ceramic mugs",
+      "name": "Rustic Mugs Set",
+      "count": 5,
+      "type": "Mug",
+      "image": {
+        "path": "../public/images/mugs.jpg",
+        "description": "Image of the Rustic Mugs Set"
+      }
+    },
+    {
+      "productId": 3,
+      "description": "Hand-painted decorative ceramic plate",
+      "name": "Decorative Plate",
+      "count": 8,
+      "type": "Plate",
+      "image": {
+        "path": "../public/images/plate1.jpg",
+        "description": "Image of the Decorative Plate"
+      }
+    }
+  ]
+  
