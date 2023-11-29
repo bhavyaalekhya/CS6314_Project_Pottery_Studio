@@ -39,4 +39,28 @@ router.get('/dashboard', function(req, res) {
     }
 });
 
+
+//Displaying Inventory
+router.get('/api/users', function(req, res) {
+    try{
+        //Make this for a logged in user
+        var usrEmail = "john.doe@example.com";
+        database.collection("Users").find({email: usrEmail}).toArray((err, result) => {  // Change 'error' to 'err'
+            if (err) {
+                console.error(err);
+                return res.status(500);//.render('error', { error: err });
+            }
+            if (!result) {
+                res.render('error', { error: "No items found" });
+            }
+            res.send(result[0]);
+        })
+    }
+    // Fetch all entries in inventory based on the constructed query
+    catch(error){
+        console.log("error:", error);
+        res.send(error);
+    }
+});
+
 module.exports = router;

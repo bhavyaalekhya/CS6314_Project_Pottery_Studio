@@ -7,6 +7,7 @@ import GalleryPage from './views/pages/GalleryPage';
 import AdminPage from './views/admin/AdminPage';
 import LoginPage from './views/auth/LoginPage';
 import SignupPage from './views/auth/SignupPage';
+import UsersPage from './views/pages/UsersPage';
 //Add your pages here
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
           <Route path="/admin" component={AdminPage} />
           <Route path="/login" component={LoginPage} />
           <Route path="/signup" component={SignupPage} />
+          <Route path="/users" component={UsersPage} />
         </Switch>
         <Footer />
       </div>
