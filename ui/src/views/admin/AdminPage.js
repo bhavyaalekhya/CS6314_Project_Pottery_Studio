@@ -16,7 +16,7 @@ const ProductDesc = function ({productInfo, buttonFunc}) {
 }
 
 // Editable Product Card
-const ProductForm = function ({productInfo, buttonFunc, submitFunc}) {
+const ProductEditForm = function ({productInfo, buttonFunc, submitFunc}) {
   // Hook to keep track of the form contents
   const [productData, setProductData] = useState({
     name: productInfo.name,
@@ -108,6 +108,82 @@ const ProductForm = function ({productInfo, buttonFunc, submitFunc}) {
   );
 }
 
+// Editable Product Card
+const ProductAddForm = function ({currMaxProdId, handleInventory}) {
+  // Hook to keep track of the form contents
+  const [productData, setProductData] = useState({
+    productId: currMaxProdId,
+    name: '',
+    description: '',
+    type: '',
+    count: '',
+    imgPath: '',
+    imgDescription: '',
+  });
+
+  // Allows updates to the form fields
+  const handleChange = (e) => {
+    setProductData({
+      ...productData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  // Updates the product on form submission
+  const formSubmit = async () => {
+    try {
+      // Try to update the product with the given ID
+      const response = await fetch('http://localhost:5000/dashboard/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(productData),
+      });
+
+      // If the update is successful, update the Product card with the updated info
+      if (response.ok) {
+        // Log the success
+        console.log('Product data inserted successfully!');
+
+        // Update the inventory info
+        handleInventory();
+      } else { // Otherwise, log the failure
+        console.error('Failed to insert new product');
+      }
+    } catch (error) { // Log the error if something crashes along the way
+      console.error('Error:', error);
+    }
+  }
+
+  // Displays the product form
+  return (
+    <div>
+      <form>
+        <label for="name">Name: </label>
+        <input type="text" id="name" name="name"
+          value={productData.name} onChange={handleChange} required />
+        <label for="description">Desc: </label>
+        <input type="text" id="description" name="description"
+          value={productData.description} onChange={handleChange} required />
+        <label for="type">Type: </label>
+        <input type="text" id="type" name="type"
+          value={productData.type} onChange={handleChange} required />
+        <label for="count">Count: </label>
+        <input type="text" id="count" name="count"
+          value={productData.count} onChange={handleChange} required />
+        <label for="imgPath">Image Path: </label>
+        <input type="text" id="imgPath" name="imgPath"
+          value={productData.imgPath} onChange={handleChange} required />
+        <label for="imgDescription">Image Desc: </label>
+        <input type="text" id="imgDescription" name="imgDescription"
+          value={productData.imgDescription} onChange={handleChange} required />
+        <button onClick={formSubmit}>Add</button>
+      </form>
+    </div>
+  );
+}
+
 // Stores and edits the information for each Product
 const Product = function ({productObj}) {
   // Keeps track of when each product card should be editable
@@ -133,28 +209,45 @@ const Product = function ({productObj}) {
   }
   else
   {
-    return <ProductForm productInfo={productInfo} buttonFunc={toggleEditable} submitFunc={updateCard} />
+    return <ProductEditForm productInfo={productInfo} buttonFunc={toggleEditable} submitFunc={updateCard} />
   }
 };
 
+// Displays the admin page
 function AdminPage() {
+  // Hook to keep track of inventory
   const [inventory, setInventory] = useState([]);
 
-  useEffect(() => {
+  // Hook to keep track of productId
+  const [maxProdId, setMaxProdId] = useState(0);
+
+  // Refreshes the inventory
+  const refreshInventory = () => {
     // Fetch inventory from MongoDB
     fetch('http://localhost:5000/dashboard')
     .then((response) => response.json())
     .then((data) => {
+      // Refresh the inventory
       setInventory(data);
-    });
-  }, []);
 
+      // Refresh the productId
+      let productIds = data.map(product => product.productId);
+      setMaxProdId(Math.max(...productIds));
+    });
+  }
+
+  // Get the current inventory contents when first loading the page
+  useEffect(() => refreshInventory, []);
+
+  // Display the admin page
   return (
     <div>
       <h2>Admin Page</h2>
       {inventory.map(product =>
         <Product productObj={product}/>
       )}
+      <hr />
+      <ProductAddForm currMaxProdId={maxProdId} submitFunc={refreshInventory}/>
     </div>
   );
 }
