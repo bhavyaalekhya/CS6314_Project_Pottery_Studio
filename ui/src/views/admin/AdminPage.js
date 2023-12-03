@@ -1,7 +1,32 @@
 import React, { useState, useEffect } from 'react';
 
 // Non-editable Product card
-const ProductDesc = function ({productInfo, buttonFunc}) {
+const ProductDesc = function ({productInfo, buttonFunc, handleInventory}) {
+  const deleteProduct = async () => {
+    try {
+      // Try to update the product with the given ID
+      const response = await fetch('http://localhost:5000/dashboard/' + productInfo._id, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      // If the update is successful, update the Product card with the updated info
+      if (response.ok) {
+        // Log the success
+        console.log('Product data deleted successfully!');
+
+        // Update the product info
+        handleInventory();
+      } else { // Otherwise, log the failure and switch back to non-editable mode
+        console.error('Failed to delete product');
+      }
+    } catch (error) { // Log the error if something crashes along the way
+      console.error('Error:', error);
+    }
+  }
+
   return (
     <div>
       <p>Name: {productInfo.name}</p>
@@ -11,6 +36,7 @@ const ProductDesc = function ({productInfo, buttonFunc}) {
       <p>Image Path: {productInfo.image.path}</p>
       <p>Image Desc: {productInfo.image.description}</p>
       <button onClick={buttonFunc}>Edit</button>
+      <button onClick={deleteProduct}>DELETE</button>
     </div>
   );
 }
@@ -185,7 +211,7 @@ const ProductAddForm = function ({currMaxProdId, handleInventory}) {
 }
 
 // Stores and edits the information for each Product
-const Product = function ({productObj}) {
+const Product = function ({productObj, handleInventory}) {
   // Keeps track of when each product card should be editable
   const [editEnabled, setEditable] = useState(false);
 
@@ -205,7 +231,7 @@ const Product = function ({productObj}) {
   // Displays the product card
   if (!editEnabled)
   {
-    return <ProductDesc productInfo={productInfo} buttonFunc={toggleEditable} />
+    return <ProductDesc productInfo={productInfo} buttonFunc={toggleEditable} handleInventory={handleInventory} />
   }
   else
   {
@@ -244,10 +270,10 @@ function AdminPage() {
     <div>
       <h2>Admin Page</h2>
       {inventory.map(product =>
-        <Product productObj={product}/>
+        <Product productObj={product} handleInventory={refreshInventory} />
       )}
       <hr />
-      <ProductAddForm currMaxProdId={maxProdId} submitFunc={refreshInventory}/>
+      <ProductAddForm currMaxProdId={maxProdId} submitFunc={refreshInventory} />
     </div>
   );
 }
