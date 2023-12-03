@@ -109,22 +109,22 @@ const ProductEditForm = function ({productInfo, buttonFunc, submitFunc}) {
   return (
     <div>
       <form>
-        <label for="name">Name: </label>
+        <label htmlFor="name">Name: </label>
         <input type="text" id="name" name="name"
           value={productData.name} onChange={handleChange} required />
-        <label for="description">Desc: </label>
+        <label htmlFor="description">Desc: </label>
         <input type="text" id="description" name="description"
           value={productData.description} onChange={handleChange} required />
-        <label for="type">Type: </label>
+        <label htmlFor="type">Type: </label>
         <input type="text" id="type" name="type"
           value={productData.type} onChange={handleChange} required />
-        <label for="count">Count: </label>
+        <label htmlFor="count">Count: </label>
         <input type="text" id="count" name="count"
           value={productData.count} onChange={handleChange} required />
-        <label for="imgPath">Image Path: </label>
+        <label htmlFor="imgPath">Image Path: </label>
         <input type="text" id="imgPath" name="imgPath"
           value={productData.imgPath} onChange={handleChange} required />
-        <label for="imgDescription">Image Desc: </label>
+        <label htmlFor="imgDescription">Image Desc: </label>
         <input type="text" id="imgDescription" name="imgDescription"
           value={productData.imgDescription} onChange={handleChange} required />
         <button onClick={formSubmit}>Save</button>
@@ -138,7 +138,6 @@ const ProductEditForm = function ({productInfo, buttonFunc, submitFunc}) {
 const ProductAddForm = function ({currMaxProdId, handleInventory}) {
   // Hook to keep track of the form contents
   const [productData, setProductData] = useState({
-    productId: currMaxProdId,
     name: '',
     description: '',
     type: '',
@@ -158,13 +157,17 @@ const ProductAddForm = function ({currMaxProdId, handleInventory}) {
   // Updates the product on form submission
   const formSubmit = async () => {
     try {
+      // Create the object to add to the inventory
+      let newProduct = Object.assign({ productId : currMaxProdId + 1 }, productData)
+      console.log(newProduct);
+
       // Try to update the product with the given ID
       const response = await fetch('http://localhost:5000/dashboard/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(productData),
+        body: JSON.stringify(newProduct),
       });
 
       // If the update is successful, update the Product card with the updated info
@@ -186,22 +189,22 @@ const ProductAddForm = function ({currMaxProdId, handleInventory}) {
   return (
     <div>
       <form>
-        <label for="name">Name: </label>
+        <label htmlFor="name">Name: </label>
         <input type="text" id="name" name="name"
           value={productData.name} onChange={handleChange} required />
-        <label for="description">Desc: </label>
+        <label htmlFor="description">Desc: </label>
         <input type="text" id="description" name="description"
           value={productData.description} onChange={handleChange} required />
-        <label for="type">Type: </label>
+        <label htmlFor="type">Type: </label>
         <input type="text" id="type" name="type"
           value={productData.type} onChange={handleChange} required />
-        <label for="count">Count: </label>
+        <label htmlFor="count">Count: </label>
         <input type="text" id="count" name="count"
           value={productData.count} onChange={handleChange} required />
-        <label for="imgPath">Image Path: </label>
+        <label htmlFor="imgPath">Image Path: </label>
         <input type="text" id="imgPath" name="imgPath"
           value={productData.imgPath} onChange={handleChange} required />
-        <label for="imgDescription">Image Desc: </label>
+        <label htmlFor="imgDescription">Image Desc: </label>
         <input type="text" id="imgDescription" name="imgDescription"
           value={productData.imgDescription} onChange={handleChange} required />
         <button onClick={formSubmit}>Add</button>
@@ -270,7 +273,7 @@ function AdminPage() {
     <div>
       <h2>Admin Page</h2>
       {inventory.map(product =>
-        <Product productObj={product} handleInventory={refreshInventory} />
+        <Product key={product._id} productObj={product} handleInventory={refreshInventory} />
       )}
       <hr />
       <ProductAddForm currMaxProdId={maxProdId} submitFunc={refreshInventory} />
