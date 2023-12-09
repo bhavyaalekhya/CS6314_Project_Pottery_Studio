@@ -3,9 +3,12 @@ var router = express.Router();
 var Mongoclient = require("mongodb").MongoClient;
 var ObjectId = require("mongodb").ObjectId;
 const { app, db } = require('../server.js');
+const { register, login, logout }=require("../controllers/auth.js") ;
 
+
+// var CONNECTION_STRING = "mongodb+srv://root:root@bookstore.algdkrr.mongodb.net/?retryWrites=true&w=majority";
+// var DATABASENAME = "BookStore";
 var CONNECTION_STRING = "mongodb+srv://root:root@pottery-studio.edqxxug.mongodb.net/?retryWrites=true&w=majority";
-
 var DATABASENAME = "studioDb";
 var database;
 
@@ -13,6 +16,11 @@ Mongoclient.connect(CONNECTION_STRING, (error,client) => {
         database = client.db(DATABASENAME);
         console.log("Mongo DB Connection Successful");
 })
+
+router.post("/register", register);
+router.post("/login", login);
+router.post("/logout", logout);
+
 
 // GET all inventory with search and filter
 router.get('/', function(req,res){
@@ -24,10 +32,12 @@ router.get('/dashboard', function(req, res) {
     try{
         database.collection("Inventory").find({}).toArray((err, result) => {  // Change 'error' to 'err'
             if (err) {
+              
                 console.error(err);
                 return res.status(500);//.render('error', { error: err });
             }
             if (!result) {
+                
                 res.render('error', { error: "No items found" });
             }
             res.send(result);
@@ -155,3 +165,4 @@ router.get('/api/users', function(req, res) {
 });
 
 module.exports = router;
+// export default router;
