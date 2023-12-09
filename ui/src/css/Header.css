@@ -33,3 +33,21 @@
 .nav-link:hover {
   color: #f8f9fa; /* slightly lighter shade on hover */
 }
+  .userInfo_container{
+    display: flex;
+    gap: 20px;
+  }
+
+  .link{
+    color: white;
+  }
+  
+  .login-container{
+    width: 40%;
+    padding-top: 40px;
+    margin: auto;
+  }
+
+  .login-container input{
+    width: 100%;
+  }

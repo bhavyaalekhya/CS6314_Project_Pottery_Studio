@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import '../../css//Signup.css'; // Import your CSS file for styling
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+
+
 
 function SignupPage() {
   const [formData, setFormData] = useState({
@@ -8,6 +12,9 @@ function SignupPage() {
     password: '',
     confirmPassword: '',
   });
+  const [err, setError] = useState(null);
+  const [passwordError, setPasswordError] = useState(null);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
@@ -16,11 +23,37 @@ function SignupPage() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const validatePassword = () => {
+    const { password } = formData;
+    // Your password rules
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}$/;
+    if (!passwordRegex.test(password)) {
+      setPasswordError('Password must be at least 12 characters long and include uppercase letters, lowercase letters, numbers, and symbols.');
+      return false;
+    } else {
+      setPasswordError(null);
+      return true;
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add your signup logic here
-    console.log('Form submitted:', formData);
-    alert("Form Submitted!");
+      // Validate password before submitting the form
+      if (!validatePassword()) {
+        return;
+      }
+      if(formData.confirmPassword!=formData.password){
+        setPasswordError('Password did not match!');
+        return;
+      }
+    try {
+      (await axios.post("/register", formData)).data.data ? alert("User created!") :  alert("user already exists");
+      navigate("/login");
+    } catch (err) {
+      console.log(err);
+      console.log(err.response.data);
+      setError(err.response.data);
+    }
   };
 
   return (
@@ -56,6 +89,8 @@ function SignupPage() {
           onChange={handleChange}
           required
         />
+
+{passwordError && <p className="error-message">{passwordError}</p>}
 
         <label htmlFor="confirmPassword">Confirm Password:</label>
         <input
