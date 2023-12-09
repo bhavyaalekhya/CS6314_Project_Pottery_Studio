@@ -1,32 +1,52 @@
 import React, { useState, useEffect } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../css/UsersPage.css';
 
 const UsersPage = () => {
+  const API_URL = 'http://localhost:5000/api/users';
 
-  const API_URL = "http://localhost:5000/api/users";
-  
-  const [userData, setUserData] = useState([]); // Initialize and manage the items state
+  const [userData, setUserData] = useState({});
 
   useEffect(() => {
-    // Fetch inventory data on component mount
-    fetch('http://localhost:5000/api/users')
+    fetch(API_URL)
       .then((response) => response.json())
       .then((data) => {
-        // Update the items state with the fetched data
-        console.log(data);
         setUserData(data);
+      })
+      .catch((error) => {
+        console.error('Error fetching user data:', error);
       });
-  }, [API_URL]);
+  }, []);
 
   const handleUpdateUser = async () => {
     try {
-      const response = await fetch('http://localhost:5000//api/users', {
+      // Create a new object with only the updated values
+      const updatedValues = {};
+      const _id = userData._id;
+
+      // Example: Update 'name'
+      const nameElement = document.getElementById('nameField');
+      if (nameElement.innerText !== userData.name) {
+        updatedValues.name = nameElement.innerText;
+      }
+
+      const addressElement = document.getElementById('addressField');
+      if (addressElement.innerText !== userData.address) {
+        updatedValues.address = addressElement.innerText;
+      }
+
+      const phoneElement = document.getElementById('phoneField');
+      if (phoneElement.innerText !== userData.phoneNumber) {
+        updatedValues.phoneNumber = phoneElement.innerText;
+      }
+
+      var sendVals = { "_id": _id, "updatedValues": updatedValues };
+      // Send only the updated values to the server
+      const response = await fetch(API_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(userData),
+        body: JSON.stringify(sendVals),
       });
 
       if (response.ok) {
@@ -40,17 +60,19 @@ const UsersPage = () => {
   };
 
   return (
+    <div className='first'>
     <div className="container">
       <div className="users-container">
         <h1>User Profile</h1>
         <div className="user-info">
           <p>
-            <strong id="name">Name:</strong>{userData.name}
+            <strong id="name">Name:</strong>{' '}
             <span
+              id="nameField"
               className="editable"
               contentEditable
-              /*onBlur={(e) => handleUpdateUser('name', e.target.innerText)}*/
             >
+              {userData.name}
             </span>
           </p>
           <p>
@@ -60,9 +82,8 @@ const UsersPage = () => {
             <strong>Address:</strong>{' '}
             <span
               className="editable"
-              id="address"
+              id="addressField"
               contentEditable
-              /*onBlur={(e) => handleUpdateUser('address', e.target.innerText)}*/
             >
               {userData.address}
             </span>
@@ -71,16 +92,16 @@ const UsersPage = () => {
             <strong>Phone Number:</strong>{' '}
             <span
               className="editable"
-              id="phone"
+              id="phoneField"
               contentEditable
-              /*onBlur={(e) => handleUpdateUser('phoneNumber', e.target.innerText)}*/
             >
               {userData.phoneNumber}
             </span>
           </p>
         </div>
       </div>
-      <button onClick={handleUpdateUser}>Save</button>
+      <button className="save-button" onClick={handleUpdateUser}>Save</button>
+    </div>
     </div>
   );
 };

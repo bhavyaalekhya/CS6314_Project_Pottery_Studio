@@ -154,4 +154,26 @@ router.get('/api/users', function(req, res) {
     }
 });
 
+router.post('/api/users', async (req, res) => {
+    const updatedUserData = req.body;
+  
+    try {
+      const usersCollection = database.collection('Users');
+  
+      // Update the user data in MongoDB
+      await usersCollection.updateOne({ _id: ObjectId(updatedUserData._id) }, { $set: updatedUserData.updatedValues });
+      //console.log("Updated the data: ", updatedUserData);
+      //res.sendStatus(200);
+      res.redirect('/api/users')
+
+    } catch (error) {
+
+      console.error('Error updating user data:', error);
+      res.status(500).send('Internal Server Error');
+
+    } finally {
+      console.log("Done!")
+    }
+  }); 
+
 module.exports = router;

@@ -17,6 +17,9 @@ function Header() {
         <Link to="/gallery" className="nav-link">
           Gallery
         </Link>
+        <Link to="/users" className="nav-link">
+          Profile
+        </Link>
         <Link to="/admin" className="nav-link">
           Admin
         </Link>

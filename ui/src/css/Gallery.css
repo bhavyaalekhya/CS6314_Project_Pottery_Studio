@@ -1,13 +1,95 @@
+
+.carousels-container {
+  display: flex; /* Use flexbox to align carousels horizontally */
+  justify-content: space-between; /* Add space between carousels */
+  margin-top: 100px; /* Adjust margin as needed */
+}
+
+/* Gallery.css */
+
+
+.gallery-heading {
+  color: #9b6036;
+}
+
+
 .gallery-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  .carousel-caption {
-    background: rgba(0, 0, 0, 0.5);
-    color: #fff;
-    padding: 10px;
-    border-radius: 4px;
-  }
-  
+  padding: 30px; /* Adjust the value as needed */
+  text-align: center;
+}
+
+.carousels-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px; /* Adjust the value as needed */
+}
+
+
+/* Add the following CSS to style each individual carousel if needed */
+.carousel {
+  width: 45%; /* Adjust the value as needed */
+  margin: 0 10px; /* Adjust the value as needed */
+}
+
+/* Add the following CSS to style the caption */
+.carousel-caption {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 20px;
+  text-align: relative;
+}
+
+/* Gallery.css */
+
+/* Add the following styles for the Caption class */
+.Caption {
+  width: 100%; /* Set the width to 100% to match the image width */
+  text-align: center; /* Center the content inside the Caption */
+  color: #9b6036;
+  font-size: 22px;
+  padding: 10px; /* Optional: Add some padding to the Caption */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+/* Add additional styling if needed */
+
+
+
+/* Add the following CSS to style each individual carousel item */
+.carousel-item {
+  margin-right: 10px; /* Adjust the value as needed */
+}
+
+/* Add the following CSS to style the last carousel item if needed */
+.carousel-item:last-child {
+  margin-right: 0; /* Remove margin on the last item */
+}
+
+
+.shop-button:hover {
+  background-color: darkred;
+}
+
+
+.shop-button-container {
+  text-align: center;
+  margin-top: 100px; /* Adjust the value as needed */
+  padding-bottom: 100px; /* Adjust the value as needed */
+}
+
+
+.shop-button {
+  background-color: teal;
+  color: white;
+  padding: 20px 40px; /* Increase the padding for a larger button */
+  font-size: 20px; /* Increase the font size */
+  border: none;
+  cursor: pointer;
+  border-radius: 8px; /* Add rounded corners for a more attractive look */
+  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+

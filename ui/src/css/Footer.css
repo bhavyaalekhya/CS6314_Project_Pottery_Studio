@@ -1,0 +1,13 @@
+.footer-container {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    background-color: #f8f9fa; /* Optional: Set background color */
+    padding: 10px; /* Optional: Add padding for better visibility */
+  }
+  
+  footer {
+    margin: 0;
+  }
+  

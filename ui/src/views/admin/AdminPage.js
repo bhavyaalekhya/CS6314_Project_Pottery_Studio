@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import '../../css/AdminPage.css';
 
 // Non-editable Product card
 const ProductDesc = function ({productInfo, buttonFunc, handleInventory}) {
@@ -35,8 +36,8 @@ const ProductDesc = function ({productInfo, buttonFunc, handleInventory}) {
       <p>Count: {productInfo.count}</p>
       <p>Image Path: {productInfo.image.path}</p>
       <p>Image Desc: {productInfo.image.description}</p>
-      <button onClick={buttonFunc}>Edit</button>
-      <button onClick={deleteProduct}>DELETE</button>
+      <button className="button edit-button" onClick={buttonFunc}>Edit</button>
+      <button className="button delete-button" onClick={deleteProduct}>DELETE</button>
     </div>
   );
 }
@@ -107,28 +108,33 @@ const ProductEditForm = function ({productInfo, buttonFunc, submitFunc}) {
 
   // Displays the product form
   return (
-    <div>
+    <div className="container">
       <form>
-        <label htmlFor="name">Name: </label>
+        <div><label htmlFor="name">Name: </label>{'  '}
         <input type="text" id="name" name="name"
-          value={productData.name} onChange={handleChange} required />
-        <label htmlFor="description">Desc: </label>
+          value={productData.name} onChange={handleChange} required /></div>
+        
+        <div><label htmlFor="description">Desc: </label>{'  '}
         <input type="text" id="description" name="description"
-          value={productData.description} onChange={handleChange} required />
-        <label htmlFor="type">Type: </label>
+          value={productData.description} onChange={handleChange} required /></div>
+        
+        <div><label htmlFor="type">Type: </label>{'  '}
         <input type="text" id="type" name="type"
-          value={productData.type} onChange={handleChange} required />
-        <label htmlFor="count">Count: </label>
+          value={productData.type} onChange={handleChange} required /></div>
+
+        <div><label htmlFor="count">Count: </label>{'  '}
         <input type="text" id="count" name="count"
-          value={productData.count} onChange={handleChange} required />
-        <label htmlFor="imgPath">Image Path: </label>
+          value={productData.count} onChange={handleChange} required /></div>
+
+        <div><label htmlFor="imgPath">Image Path: </label>{'  '}
         <input type="text" id="imgPath" name="imgPath"
-          value={productData.imgPath} onChange={handleChange} required />
-        <label htmlFor="imgDescription">Image Desc: </label>
+          value={productData.imgPath} onChange={handleChange} required /></div>
+
+        <div><label htmlFor="imgDescription">Image Desc: </label>{'  '}
         <input type="text" id="imgDescription" name="imgDescription"
-          value={productData.imgDescription} onChange={handleChange} required />
-        <button onClick={formSubmit}>Save</button>
-        <button onClick={buttonFunc}>Cancel</button>
+          value={productData.imgDescription} onChange={handleChange} required /></div>
+        <button className="button edit-button" onClick={formSubmit}>Save</button>
+        <button className="button edit-button" onClick={buttonFunc}>Cancel</button>
       </form>
     </div>
   );
@@ -187,27 +193,39 @@ const ProductAddForm = function ({currMaxProdId, handleInventory}) {
 
   // Displays the product form
   return (
-    <div>
+    <div className="container">
       <form>
-        <label htmlFor="name">Name: </label>
+        <div>
+        <label htmlFor="name">Name: </label>{' '}
         <input type="text" id="name" name="name"
           value={productData.name} onChange={handleChange} required />
-        <label htmlFor="description">Desc: </label>
+        </div>
+        <div>
+        <label htmlFor="description">Desc: </label>{' '}
         <input type="text" id="description" name="description"
           value={productData.description} onChange={handleChange} required />
-        <label htmlFor="type">Type: </label>
+        </div>
+        <div>
+        <label htmlFor="type">Type: </label>{' '}
         <input type="text" id="type" name="type"
           value={productData.type} onChange={handleChange} required />
-        <label htmlFor="count">Count: </label>
+        </div>
+        <div>
+        <label htmlFor="count">Count: </label>{' '}
         <input type="text" id="count" name="count"
           value={productData.count} onChange={handleChange} required />
-        <label htmlFor="imgPath">Image Path: </label>
+        </div>
+        <div>
+        <label htmlFor="imgPath">Image Path: </label>{' '}
         <input type="text" id="imgPath" name="imgPath"
           value={productData.imgPath} onChange={handleChange} required />
-        <label htmlFor="imgDescription">Image Desc: </label>
+        </div>
+        <div>
+        <label htmlFor="imgDescription">Image Desc: </label>{' '}
         <input type="text" id="imgDescription" name="imgDescription"
           value={productData.imgDescription} onChange={handleChange} required />
-        <button onClick={formSubmit}>Add</button>
+        </div>
+        <button className="button edit-button" onClick={formSubmit}>Add</button>
       </form>
     </div>
   );
@@ -270,13 +288,17 @@ function AdminPage() {
 
   // Display the admin page
   return (
-    <div>
+    <div className="admin-page">
       <h2>Admin Page</h2>
-      {inventory.map(product =>
-        <Product key={product._id} productObj={product} handleInventory={refreshInventory} />
-      )}
+      {inventory.map((product) => (
+        <div key={product._id} className="product-container">
+          <Product productObj={product} handleInventory={refreshInventory} />
+        </div>
+      ))}
       <hr />
-      <ProductAddForm currMaxProdId={maxProdId} submitFunc={refreshInventory} />
+      <div className="add-product-form">
+        <ProductAddForm currMaxProdId={maxProdId} submitFunc={refreshInventory} />
+      </div>
     </div>
   );
 }
