@@ -147,6 +147,7 @@ router.get('/api/users/:username', (req, res) => {
         //Make this for a logged in user
         //var usrEmail = "john.doe@example.com";
         const userName = req.params.username;
+        //console.log("req.params:", req.params);
         
         database.collection("Users").find({username: userName}).toArray((err, result) => {  // Change 'error' to 'err'
             if (err) {
