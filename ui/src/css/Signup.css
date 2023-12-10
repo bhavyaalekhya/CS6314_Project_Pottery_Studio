@@ -1,0 +1,76 @@
+.signup-container {
+    max-width: 30%;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-top:5%;
+  }
+  
+  .signup-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  label {
+    margin-top: 10px;
+  }
+  
+  input {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .signup-button {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #9b6036;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 24px;
+    width:300px;
+    margin-left: 25%;
+    transition: background-color 0.3s ease;
+  
+    &:hover {
+      background-color: #2d0f00;
+    }
+  }
+  
+
+  .cust-form-control {
+    box-sizing: border-box;
+    display: block;
+    height: calc(1.5em + .75rem + 2px);
+    width: 200px;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  }
+
+  .form-group, .mt-3{
+    width: 350px;
+  }
+
+  .Auth-form-content{
+    align-items: center;
+  }
+
+  label {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 8px;
+    display: block; /* Make labels block-level elements for proper spacing */
+  }
+  

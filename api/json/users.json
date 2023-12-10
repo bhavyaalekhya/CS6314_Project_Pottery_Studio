@@ -1,0 +1,47 @@
+[
+    {
+      "id": 1,
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "password": "password123",
+      "address": "123 Main St, Cityville",
+      "phoneNumber": "555-1234",
+      "userType": "customer",
+      "cartInfo": {
+        "items": [
+          {
+            "productId": 101,
+            "quantity": 2
+          },
+          {
+            "productId": 102,
+            "quantity": 1
+          }
+        ],
+        "total": 45.99
+      }
+    },
+    {
+      "id": 2,
+      "name": "Jane Smith",
+      "email": "jane.smith@example.com",
+      "password": "letmein456",
+      "address": "456 Oak St, Townsville",
+      "phoneNumber": "555-5678",
+      "userType": "admin",
+      "cartInfo": {
+        "items": [
+          {
+            "productId": 103,
+            "quantity": 3
+          },
+          {
+            "productId": 104,
+            "quantity": 1
+          }
+        ],
+        "total": 75.5
+      }
+    }
+  ]
+  
