@@ -16,9 +16,9 @@ function Header() {
       </div>
       <nav className="nav-links">
       {currentUser && (
-          <div className='userInfo_container'><span className="userInfo"> Hello {currentUser?.username}!!</span></div>
+          <div className='userInfo_container'><span style={{ fontSize: '25px' }} className="userInfo"> Hello {currentUser?.username}!!</span></div>
         )}
-        
+
           {currentUser ? (
             <div className='userInfo_container'>
               <Link to="/" className="nav-link">
@@ -27,7 +27,7 @@ function Header() {
               <Link to="/contact" className="nav-link">
                 Contact Us
               </Link>
-              <Link to="/users/${currentUser.username}" className="nav-link">
+              <Link to='/users' className="nav-link">
                 Profile
               </Link>
             {/* Render "Admin" link only if the user is an admin */}

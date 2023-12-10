@@ -4,28 +4,24 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/authContext.js";
 
 const UsersPage = () => {
-  const API_URL = 'http://localhost:5000/api/users';
   const { currentUser } = useContext(AuthContext);
+  const API_URL = 'http://localhost:5000/api/users';
 
   const [userData, setUserData] = useState({});
 
   useEffect(() => {
     if (currentUser) {
+      // Construct the API URL with the username or user ID of the logged-in user
       const apiUrlForCurrentUser = `${API_URL}/${currentUser.username}`;
-  
+
+      // Fetch the user data
       fetch(apiUrlForCurrentUser)
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-          }
-          return response.json();
-        })
+        .then((response) => response.json())
         .then((data) => {
           setUserData(data);
         })
         .catch((error) => {
           console.error('Error fetching user data:', error);
-          // Handle the error, show a message, or redirect the user
         });
     }
   }, [API_URL, currentUser]);
@@ -85,11 +81,11 @@ const UsersPage = () => {
               className="editable"
               contentEditable
             >
-              {userData.name}
+              {userData.username}
             </span>
           </p>
           <p>
-            <strong id="email">Email:</strong> {userData.email}
+            <strong id="email">Email:</strong> <span id="emailId">{userData.email}</span>
           </p>
           <p>
             <strong>Address:</strong>{' '}
