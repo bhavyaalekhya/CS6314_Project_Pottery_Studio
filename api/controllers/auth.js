@@ -3,7 +3,7 @@ const User =require("../models/user.js");
 const bcrypt =require("bcrypt");
 
  const register = (req, res) => {
-    const { username, email, phoneNumber, address, password } = req.body;
+    const { username, email, phone, address, password } = req.body;
  User.findOne({ username: username }).then((user)=>{
     if (user) {
         return res.status(200).json({data:false});
@@ -14,8 +14,7 @@ const bcrypt =require("bcrypt");
                email: req.body.email,
                password: hash,
                phone: req.body.phone,
-               address: req.body.address,
-               role: "customer"
+               address: req.body.address
             }).then((data)=>{
                 return res.status(200).json({data:true});
 

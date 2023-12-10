@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var Mongoclient = require("mongodb").MongoClient;
+const { MongoClient } = require('mongodb');
 var ObjectId = require("mongodb").ObjectId;
 const { app, db } = require('../server.js');
 const { register, login, logout }=require("../controllers/auth.js") ;
@@ -12,10 +12,16 @@ var CONNECTION_STRING = "mongodb+srv://root:root@pottery-studio.edqxxug.mongodb.
 var DATABASENAME = "studioDb";
 var database;
 
-Mongoclient.connect(CONNECTION_STRING, (error,client) => {
+const client = new MongoClient(CONNECTION_STRING);
+
+client.connect()
+    .then(() => {
         database = client.db(DATABASENAME);
-        //console.log("Mongo DB Connection Successful");
-})
+        console.log("Mongo DB Connection Successful");
+    })
+    .catch(error => {
+        console.error('Error connecting to MongoDB', error);
+    });
 
 router.post("/register", register);
 router.post("/login", login);
@@ -30,6 +36,7 @@ router.get('/', function(req,res){
 // Displaying Inventory
 router.get('/dashboard', function(req, res) {
     try{
+        console.log("DB Connected");
         database.collection("Inventory").find({}).toArray((err, result) => {  // Change 'error' to 'err'
             if (err) {
               
@@ -143,30 +150,27 @@ router.delete('/dashboard/:id', async (req, res) => {
 
 // Displaying A User
 router.get('/api/users/:username', (req, res) => {
-    try{
-        //Make this for a logged in user
-        //var usrEmail = "john.doe@example.com";
-        const userName = req.params.username;
-        //console.log("req.params:", req.params);
-        
-        database.collection("Users").find({username: userName}).toArray((err, result) => {  // Change 'error' to 'err'
+    try {
+        console.log("req.params: ", req.params);
+        const userName = req.params.username;  // Corrected this line
+        console.log("username: ", userName);
+
+        database.collection("Users").find({ username: userName }).toArray((err, result) => {
             if (err) {
                 console.error(err);
-                return res.status(500);//.render('error', { error: err });
+                return res.status(500); // Add a response method like .send() or .json() with an error message
             }
-            if (!result) {
-                res.render('error', { error: "No items found" });
+            if (!result.length) { // Changed to check if result array is empty
+                return res.status(404).send({ error: "No user found" }); // Handle the case when no user is found
             }
-
             res.send(result[0]);
         })
-    }
-    // Fetch all entries in inventory based on the constructed query
-    catch(error){
+    } catch (error) {
         console.log("error:", error);
-        res.send(error);
+        res.status(500).send(error); // Send the error with a status code
     }
 });
+
 
 router.post('/api/users', async (req, res) => {
     const updatedUserData = req.body;
@@ -178,8 +182,7 @@ router.post('/api/users', async (req, res) => {
       await usersCollection.updateOne({ _id: ObjectId(updatedUserData._id) }, { $set: updatedUserData.updatedValues });
       //console.log("Updated the data: ", updatedUserData);
       //res.sendStatus(200);
-      //res.redirect('/api/users/')
-      res.redirect(`/api/users/${updatedUserData.updatedValues.username}`);
+      res.redirect('/api/users')
 
     } catch (error) {
 
@@ -190,5 +193,44 @@ router.post('/api/users', async (req, res) => {
       console.log("Done!")
     }
   }); 
+
+  router.get('/api/users/:username/cartInfo', async (req, res) => {
+    try {
+        const username = req.params.username;
+        const user = await database.collection("Users").findOne({ username: username });
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+        res.json(user.cartInfo || []);
+    } catch (error) {
+        console.error('Error fetching cart:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+// Update user's cart information
+router.put('/api/users/:username/cart', async (req, res) => {
+    try {
+        const username = req.params.username;
+        const cartInfo = req.body.cart; // Assuming cart info is sent in the body
+        await database.collection("Users").updateOne({ username: username }, { $set: { cartInfo: cartInfo } });
+        res.json({ message: "Cart updated successfully" });
+    } catch (error) {
+        console.error('Error updating cart:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+// Clear user's cart information
+router.delete('/api/users/:username/cart', async (req, res) => {
+    try {
+        const username = req.params.username;
+        await database.collection("Users").updateOne({ username: username }, { $set: { cartInfo: [] } });
+        res.json({ message: "Cart cleared successfully" });
+    } catch (error) {
+        console.error('Error clearing cart:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 
 module.exports = router;

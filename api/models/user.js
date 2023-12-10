@@ -10,7 +10,6 @@ var UserSchema = new Schema({
  password: String,
  phone:Number,
  address:String,
- role:String
 });
 
 UserSchema.methods.comparePassword = function(candidatePassword, cb) {
