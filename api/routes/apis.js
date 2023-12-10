@@ -14,7 +14,7 @@ var database;
 
 Mongoclient.connect(CONNECTION_STRING, (error,client) => {
         database = client.db(DATABASENAME);
-        console.log("Mongo DB Connection Successful");
+        //console.log("Mongo DB Connection Successful");
 })
 
 router.post("/register", register);
@@ -146,9 +146,8 @@ router.get('/api/users/:username', (req, res) => {
     try{
         //Make this for a logged in user
         //var usrEmail = "john.doe@example.com";
-        const { userName } = req.params;
-        console.log("username: ", userName);
-        console.log("req.params: ", req.params);
+        const userName = req.params.username;
+        
         database.collection("Users").find({username: userName}).toArray((err, result) => {  // Change 'error' to 'err'
             if (err) {
                 console.error(err);
@@ -157,6 +156,7 @@ router.get('/api/users/:username', (req, res) => {
             if (!result) {
                 res.render('error', { error: "No items found" });
             }
+
             res.send(result[0]);
         })
     }
@@ -177,7 +177,8 @@ router.post('/api/users', async (req, res) => {
       await usersCollection.updateOne({ _id: ObjectId(updatedUserData._id) }, { $set: updatedUserData.updatedValues });
       //console.log("Updated the data: ", updatedUserData);
       //res.sendStatus(200);
-      res.redirect('/api/users')
+      //res.redirect('/api/users/')
+      res.redirect(`/api/users/${updatedUserData.updatedValues.username}`);
 
     } catch (error) {
 
