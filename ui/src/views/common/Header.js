@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/authContext.js";
 import { Link } from 'react-router-dom';
 import '../../css/Header.css'; // Import your CSS file for styling
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 function Header() {
   const { currentUser, logout } = useContext(AuthContext);
@@ -16,9 +17,9 @@ function Header() {
       </div>
       <nav className="nav-links">
       {currentUser && (
-          <div className='userInfo_container'><span style={{ fontSize: '25px' }} className="userInfo"> Hello {currentUser?.username}!!</span></div>
+          <div className='userInfo_container'><span className="userInfo"> Hello {currentUser?.username}!!</span></div>
         )}
-
+        
           {currentUser ? (
             <div className='userInfo_container'>
               <Link to="/" className="nav-link">
@@ -27,9 +28,13 @@ function Header() {
               <Link to="/contact" className="nav-link">
                 Contact Us
               </Link>
-              <Link to='/users' className="nav-link">
+              <Link to="/users/${currentUser.username}" className="nav-link">
                 Profile
               </Link>
+              <Link to='/cart' className='nav-link'>
+                Cart
+              </Link>
+              
             {/* Render "Admin" link only if the user is an admin */}
             {currentUser && currentUser.username === 'admin' && (
               <Link to="/admin" className="nav-link">
@@ -47,7 +52,7 @@ function Header() {
                 Home
               </Link>
               <Link to="/contact" className="nav-link">
-                Contact Us
+                Contact US
               </Link>
               <Link className="nav-link" to="/login">
               Login

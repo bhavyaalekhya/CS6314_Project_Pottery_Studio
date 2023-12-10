@@ -174,7 +174,7 @@ function HomePage() {
       </div>
       <div className="shop-button-container">
           {/* Use Link to navigate to the Shopping page */}
-          <Link to="/Shopping">
+          <Link to="/shop">
             <button className="shop-button">Loved our Pottery? Shop yours!</button>
           </Link>
         </div>

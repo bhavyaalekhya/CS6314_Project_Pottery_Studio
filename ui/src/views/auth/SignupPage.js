@@ -102,26 +102,6 @@ function SignupPage() {
           required
         />
 
-      <label htmlFor="address">Address:</label>
-        <input
-          type="text"
-          id="address"
-          name="address"
-          value={formData.address}
-          onChange={handleChange}
-          required
-        />
-
-      <label htmlFor="phone">Phone Number:</label>
-        <input
-          type="text"
-          id="phone"
-          name="phone"
-          value={formData.phone}
-          onChange={handleChange}
-          required
-        />
-
         <button type="submit" className="signup-button">
           Signup
         </button>

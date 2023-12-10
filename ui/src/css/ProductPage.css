@@ -1,0 +1,32 @@
+.productI-container {
+    padding: 20px;
+    height: 100%; /* You might need to adjust the height based on your content */
+    border-radius: 6px; /* Rounded corners */
+    box-shadow: inset;
+    margin: 50px;
+    width: 100vw;
+}
+
+.pItem-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertically center the content */
+    align-items: center; /* Horizontally center the content */
+}
+
+.cart-icon {
+    position: 'fixed';
+    top: '100px';
+    justify-content: right;
+    float: right;
+}
+
+.add-to-cart {
+    padding: 10px;
+    margin: 10px;
+}
+
+.return-page {
+    padding: 10px;
+    margin: 10px;
+}
