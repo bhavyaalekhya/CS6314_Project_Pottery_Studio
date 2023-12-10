@@ -12,6 +12,7 @@ export const AuthContexProvider = ({ children }) => {
     // const res = await axios.post("/auth/login", inputs);
     try{
         const res=await axios.post("/login",inputs);
+        console.log("in auth context: ", res.data.data )
         res.data.data ? (setCurrentUser(res.data.data)) : alert("username or password incorrect");
     }catch(err){
         console.log(err);

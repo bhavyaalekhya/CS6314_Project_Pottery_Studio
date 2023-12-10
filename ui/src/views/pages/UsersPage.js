@@ -35,7 +35,7 @@ const UsersPage = () => {
       // Example: Update 'name'
       const nameElement = document.getElementById('nameField');
       if (nameElement.innerText !== userData.name) {
-        updatedValues.name = nameElement.innerText;
+        updatedValues.username = nameElement.innerText;
       }
 
       const addressElement = document.getElementById('addressField');
@@ -44,8 +44,8 @@ const UsersPage = () => {
       }
 
       const phoneElement = document.getElementById('phoneField');
-      if (phoneElement.innerText !== userData.phoneNumber) {
-        updatedValues.phoneNumber = phoneElement.innerText;
+      if (phoneElement.innerText !== userData.phone) {
+        updatedValues.phone = phoneElement.innerText;
       }
 
       var sendVals = { "_id": _id, "updatedValues": updatedValues };
@@ -85,7 +85,14 @@ const UsersPage = () => {
             </span>
           </p>
           <p>
-            <strong id="email">Email:</strong> <span id="emailId">{userData.email}</span>
+            <strong id="email">Email:</strong> 
+            <span 
+              className="editable"
+              id="emailId"
+              contentEditable
+            >
+              {userData.email}
+            </span>
           </p>
           <p>
             <strong>Address:</strong>{' '}
@@ -104,7 +111,7 @@ const UsersPage = () => {
               id="phoneField"
               contentEditable
             >
-              {userData.phoneNumber}
+              {userData.phone}
             </span>
           </p>
         </div>

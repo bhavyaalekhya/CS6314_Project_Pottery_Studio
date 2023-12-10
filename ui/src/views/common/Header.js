@@ -47,7 +47,7 @@ function Header() {
                 Home
               </Link>
               <Link to="/contact" className="nav-link">
-                Contact US
+                Contact Us
               </Link>
               <Link className="nav-link" to="/login">
               Login
