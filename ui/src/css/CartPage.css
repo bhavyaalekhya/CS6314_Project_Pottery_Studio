@@ -1,0 +1,58 @@
+.cart-container {
+    border: 2px solid #f2f2f2;
+    padding: 20px;
+    height: 100%; /* You might need to adjust the height based on your content */
+    border-radius: 6px; /* Rounded corners */
+    box-shadow: inset;
+    margin: 50px;
+}
+
+.cart-item {
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+    font-size: x-large;
+}
+
+.item-details {
+    text-align: center;
+
+}
+
+.item-image {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    overflow: hidden; 
+}
+
+.item-image img {
+    max-width: 100%; 
+    max-height: 100%; 
+    object-fit: contain; 
+}
+
+.checkout-container {
+    display: flex;
+    justify-content: center; /* Horizontally centers the content */
+    align-items: center; /* Vertically centers the content */
+    padding: 25px;
+}
+
+.col-sm-4 {
+    display: flex;
+    justify-content: center; /* Horizontally centers the button in the column */
+    align-items: center; /* Vertically centers the button in the column */
+    flex: 1; /* Each column will take equal width */
+}
+
+.cart-items {
+    text-align: center;
+}
+
+.checkout-btn, .cancel-btn, .back-btn {
+    margin: 7%;
+    padding: 3%;
+    border-radius: 8px;
+    /*height: 25%;
+    width: 15%;*/
+}

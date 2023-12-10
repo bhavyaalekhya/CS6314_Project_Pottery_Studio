@@ -72,10 +72,10 @@ const UsersPage = () => {
     <div className='first'>
     <div className="container">
       <div className="users-container">
-        <h1>User Profile</h1>
         <div className="user-info">
+          <h1>User Profile</h1>
           <p>
-            <strong id="name">Name:</strong>{' '}
+            <strong className="textFields" id="name">Name:</strong>{' '}
             <span
               id="nameField"
               className="editable"
@@ -84,8 +84,9 @@ const UsersPage = () => {
               {userData.username}
             </span>
           </p>
+
           <p>
-            <strong id="email">Email:</strong> 
+            <strong className="textFields" id="email">Email:</strong>{' '} 
             <span 
               className="editable"
               id="emailId"
@@ -95,7 +96,7 @@ const UsersPage = () => {
             </span>
           </p>
           <p>
-            <strong>Address:</strong>{' '}
+            <strong className="textFields">Address:</strong>{' '}
             <span
               className="editable"
               id="addressField"
@@ -105,7 +106,7 @@ const UsersPage = () => {
             </span>
           </p>
           <p>
-            <strong>Phone Number:</strong>{' '}
+            <strong className="textFields">Phone Number:</strong>{' '}
             <span
               className="editable"
               id="phoneField"

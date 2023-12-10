@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Amatic+SC&family=Cinzel&family=WindSong&display=swap');
+.shop-container {
+    height: 300pt;
+    padding: 2%;
+}
+
+.circle-image {
+    width: 300px; /* or any size you want */
+    height: 300px; /* should be the same as width for a perfect circle */
+    border-radius: 50%; /* this creates the circle shape */
+    overflow: hidden; /* ensures the image doesn't overflow the circle */
+    display: flex; /* enables flexbox */
+    justify-content: center; /* centers the image horizontally */
+    align-items: center; /* centers the image vertically */
+    margin: 50px;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.product-item {
+    text-align: center;
+}
+
+.product-item img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.h1title {
+    margin: 30px;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+}
+
+.search-filter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2%;
+    width: 20%;
+}
+
+.search-filter .row {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .search-filter select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+  }
+  
+  .search-filter button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #9b6036;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .search-filter button:hover {
+    background-color: #9b6036;
+  }
+
+.cart-icon-container {
+    position: 'fixed';
+    top: '80px';
+    justify-content: right;
+    float: right;
+    margin: 40px;
+}
+
+button .types {
+    padding: 50px;
+    margin: 50px;
+    color: #000;
+}
+
+.categories p {
+    text-align: center;
+}
+  
+.reset-button {
+    color: #fff;
+}

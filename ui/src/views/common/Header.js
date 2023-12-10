@@ -6,6 +6,7 @@ import '../../css/Header.css'; // Import your CSS file for styling
 
 function Header() {
   const { currentUser, logout } = useContext(AuthContext);
+  /*console.log("currentUser:", currentUser)*/
 
   return (
     <header className="header-container">
@@ -27,11 +28,21 @@ function Header() {
               <Link to="/contact" className="nav-link">
                 Contact Us
               </Link>
-              <Link to='/users' className="nav-link">
-                Profile
-              </Link>
+
+              {currentUser && currentUser.role != 'admin' && (
+                <Link to='/users' className="nav-link">
+                  Profile
+                </Link>
+            )}
+
+            {currentUser && currentUser.role != 'admin' && (
+                <Link to='/cart' className="nav-link">
+                  Cart
+                </Link>
+            )}
+
             {/* Render "Admin" link only if the user is an admin */}
-            {currentUser && currentUser.username === 'admin' && (
+            {currentUser && currentUser.role == 'admin' && (
               <Link to="/admin" className="nav-link">
                 Admin
               </Link>
