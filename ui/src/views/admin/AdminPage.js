@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import '../../css/AdminPage.css';
+import { AuthContext } from "../../context/authContext.js";
+import { Link } from 'react-router-dom';
 
 // Non-editable Product card
 const ProductDesc = function ({productInfo, buttonFunc, handleInventory}) {
@@ -262,6 +264,9 @@ const Product = function ({productObj, handleInventory}) {
 
 // Displays the admin page
 function AdminPage() {
+
+  const { currentUser, logout } = useContext(AuthContext);
+
   // Hook to keep track of inventory
   const [inventory, setInventory] = useState([]);
 
@@ -285,6 +290,20 @@ function AdminPage() {
 
   // Get the current inventory contents when first loading the page
   useEffect(() => refreshInventory, []);
+
+  // Check if the user is logged in and has the "admin" role
+  if (!currentUser || currentUser.role !== 'admin') {
+    // Redirect to another page or display an unauthorized message
+    return (
+      <div style={{ textAlign: 'center', marginTop: '50px' }}>
+        <h2>Unauthorized Access</h2>
+        <p>You do not have permission to view this page.</p>
+        <Link to="/">
+              Back to Home
+        </Link>
+      </div>
+    );
+  }
 
   // Display the admin page
   return (

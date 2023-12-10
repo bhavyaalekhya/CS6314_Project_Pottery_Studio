@@ -7,7 +7,7 @@
     margin: 50px;
 }
 
-p {
+.cart-item {
     font-family: 'Cinzel', serif;
     font-weight: bold;
     font-size: x-large;
@@ -45,16 +45,14 @@ p {
     flex: 1; /* Each column will take equal width */
 }
 
-.cart-items p {
+.cart-items {
     text-align: center;
 }
 
-.checkout-btn {
-    margin: 15px;
+.checkout-btn, .cancel-btn, .back-btn {
+    margin: 7%;
+    padding: 3%;
+    border-radius: 8px;
+    /*height: 25%;
+    width: 15%;*/
 }
-
-
-.cancel-btn {
-    margin: 15px;
-}
-

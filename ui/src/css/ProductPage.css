@@ -3,8 +3,8 @@
     height: 100%; /* You might need to adjust the height based on your content */
     border-radius: 6px; /* Rounded corners */
     box-shadow: inset;
-    margin: 50px;
-    width: 100vw;
+    /*margin: 5%;
+    width: 100vw;*/
 }
 
 .pItem-container {
@@ -29,4 +29,15 @@
 .return-page {
     padding: 10px;
     margin: 10px;
+}
+
+
+.productImage {
+    height: 100%;
+    width: 100%;
+}
+
+.return-page, .add-to-cart{
+    margin: 7%;
+    border-radius: 8px;
 }

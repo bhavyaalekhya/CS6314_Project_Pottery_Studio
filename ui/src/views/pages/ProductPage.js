@@ -44,7 +44,7 @@ function ProductPage() {
 						<h1>{product.name}</h1>
 						<div className="row">
 							<div className="col">
-								<img src={imagePath} alt={product.name} />
+								<img className='productImage' src={imagePath} alt={product.name} />
 							</div>
 							<div className="col">
 								<div className='row'>
@@ -57,10 +57,8 @@ function ProductPage() {
 									</div>
 									<div className='row'>
 										<div className='col'>
-											<button className="btn btn-primary add-to-cart" onClick={handleAddToCart}>Add to Cart</button>  
-										</div>
-										<div className='col'>
-											<button className='btn btn-primary return-page' onClick={handleReturn}>Return to Page</button>
+											<button className="btn add-to-cart" onClick={handleAddToCart}>Add to Cart</button>  
+											<button className='btn return-page' onClick={handleReturn}>Return to Page</button>
 										</div>	
 									</div>
 								</div>

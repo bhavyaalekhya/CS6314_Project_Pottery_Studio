@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Amatic+SC&family=Cinzel&family=WindSong&display=swap');
 .shop-container {
     height: 300pt;
+    padding: 2%;
 }
 
 .circle-image {
@@ -30,15 +31,50 @@
     border-radius: 8px;
 }
 
-h1 {
+.h1title {
     margin: 30px;
     font-family: 'Cinzel', serif;
     font-weight: bold;
 }
 
 .search-filter {
-    margin: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2%;
+    width: 20%;
 }
+
+.search-filter .row {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .search-filter select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+  }
+  
+  .search-filter button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #9b6036;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .search-filter button:hover {
+    background-color: #9b6036;
+  }
 
 .cart-icon-container {
     position: 'fixed';

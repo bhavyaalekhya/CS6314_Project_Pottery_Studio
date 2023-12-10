@@ -5,6 +5,7 @@ import ShoppingPage from '../../views/pages/ShoppingPage';
 import CartProvider, { CartContext } from '../../context/CartContext'; 
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { AuthContext } from "../../context/authContext.js";
+import { Link } from 'react-router-dom';
 
 
 function ShopPage() {
@@ -18,7 +19,9 @@ function ShopPage() {
     const cartContext = useContext(CartContext);
 
     const [userData, setUserData] = useState({});
-    const username = currentUser.username;
+    //const username = currentUser.username;
+
+    
 
     useEffect(() => 
         {
@@ -89,9 +92,23 @@ function ShopPage() {
         setSearchQuery('');
     };
 
+    // Check if the user is logged in and has the "admin" role
+    if (!currentUser) {
+        // Redirect to another page or display an unauthorized message
+        return (
+        <div style={{ textAlign: 'center', marginTop: '50px' }}>
+            <h2>User Not Logged In</h2>
+            <p>Please Login to access the shopping page</p>
+            <Link to="/login">
+                Login
+            </Link>
+        </div>
+        );
+    }
+
     return (
         <div className="shop-container">
-            <h1>Products</h1>
+            <h1 className="h1title">Products</h1>
             <div className="categories-row" style={{ display: 'flex' }}>
                 {Object.keys(uniqueData).map((type) => {
                     const imagePath = uniqueData[type][0]?.image?.path;
@@ -119,7 +136,7 @@ function ShopPage() {
                         </select>
                     </div>
                     <div className="col-md-4">
-                        <button className="btn btn-primary reset-button" onClick={() => setSelectedType({})}>Reset Filter</button>
+                        <button className="btn btn-primary reset-button" onClick={() => setSelectedType("all")}>Reset Filter</button>
                     </div>
                 </div>
             </div>

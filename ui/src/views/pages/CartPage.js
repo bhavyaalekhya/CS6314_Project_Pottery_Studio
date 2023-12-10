@@ -50,10 +50,10 @@ function CartPage() {
                                     <div className='col'>
                                         <div className='row item-details'>
                                             <p>{item.name}</p>
-                                            <p>Quantity: {item.quantity}</p>
+                                            <p className="cart-item">Quantity: {item.quantity}</p>
                                             {console.log(item.productId)}
                                             <div className='remove-item'>
-                                                <p><a href='/cart' onClick={() => handleRemoveItem(item.productId)}>Delete Item</a></p>
+                                                <p className="cart-item"><a href='/cart' onClick={() => handleRemoveItem(item.productId)}>Delete Item</a></p>
                                             </div>
                                         </div>
                                     </div>
@@ -62,7 +62,7 @@ function CartPage() {
                             </div>
                         ))
                         ) : (
-                            <p>
+                            <p className="cart-item">
                                 No items in the cart! Continue Shopping <br/>
                                 <a href='/shop' onClick={() => navigate('/shop')}>Back to Shopping</a>
                             </p>

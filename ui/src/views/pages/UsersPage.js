@@ -4,28 +4,24 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/authContext.js";
 
 const UsersPage = () => {
-  const API_URL = 'http://localhost:5000/api/users';
   const { currentUser } = useContext(AuthContext);
+  const API_URL = 'http://localhost:5000/api/users';
 
   const [userData, setUserData] = useState({});
 
   useEffect(() => {
     if (currentUser) {
+      // Construct the API URL with the username or user ID of the logged-in user
       const apiUrlForCurrentUser = `${API_URL}/${currentUser.username}`;
-  
+
+      // Fetch the user data
       fetch(apiUrlForCurrentUser)
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-          }
-          return response.json();
-        })
+        .then((response) => response.json())
         .then((data) => {
           setUserData(data);
         })
         .catch((error) => {
           console.error('Error fetching user data:', error);
-          // Handle the error, show a message, or redirect the user
         });
     }
   }, [API_URL, currentUser]);
@@ -39,7 +35,7 @@ const UsersPage = () => {
       // Example: Update 'name'
       const nameElement = document.getElementById('nameField');
       if (nameElement.innerText !== userData.name) {
-        updatedValues.name = nameElement.innerText;
+        updatedValues.username = nameElement.innerText;
       }
 
       const addressElement = document.getElementById('addressField');
@@ -48,8 +44,8 @@ const UsersPage = () => {
       }
 
       const phoneElement = document.getElementById('phoneField');
-      if (phoneElement.innerText !== userData.phoneNumber) {
-        updatedValues.phoneNumber = phoneElement.innerText;
+      if (phoneElement.innerText !== userData.phone) {
+        updatedValues.phone = phoneElement.innerText;
       }
 
       var sendVals = { "_id": _id, "updatedValues": updatedValues };
@@ -76,23 +72,31 @@ const UsersPage = () => {
     <div className='first'>
     <div className="container">
       <div className="users-container">
-        <h1>User Profile</h1>
         <div className="user-info">
+          <h1>User Profile</h1>
           <p>
-            <strong id="name">Name:</strong>{' '}
+            <strong className="textFields" id="name">Name:</strong>{' '}
             <span
               id="nameField"
               className="editable"
               contentEditable
             >
-              {userData.name}
+              {userData.username}
+            </span>
+          </p>
+
+          <p>
+            <strong className="textFields" id="email">Email:</strong>{' '} 
+            <span 
+              className="editable"
+              id="emailId"
+              contentEditable
+            >
+              {userData.email}
             </span>
           </p>
           <p>
-            <strong id="email">Email:</strong> {userData.email}
-          </p>
-          <p>
-            <strong>Address:</strong>{' '}
+            <strong className="textFields">Address:</strong>{' '}
             <span
               className="editable"
               id="addressField"
@@ -102,13 +106,13 @@ const UsersPage = () => {
             </span>
           </p>
           <p>
-            <strong>Phone Number:</strong>{' '}
+            <strong className="textFields">Phone Number:</strong>{' '}
             <span
               className="editable"
               id="phoneField"
               contentEditable
             >
-              {userData.phoneNumber}
+              {userData.phone}
             </span>
           </p>
         </div>

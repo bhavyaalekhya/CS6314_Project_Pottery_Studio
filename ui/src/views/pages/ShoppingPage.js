@@ -47,11 +47,11 @@ function ShoppingPage({ type, products }) {
             <div className="shopping-container">
                 <div className="grid-container">
                     {filteredItems.map(item => (
-                        <div className="grid-item" key={item.id} onClick={() => handleProductClick(item)}>
+                        <div className="grid-item shop-grid" key={item.id} onClick={() => handleProductClick(item)}>
                             <div className='row'>
                                 {console.log("Image: " + item.image.path)}
                                 {isValidImagePath(item) ? (
-                                    <img src={item.image.path} alt={item.name} style={{ cursor: 'pointer' }} />
+                                    <img className='prodImg' src={item.image.path} alt={item.name} style={{ cursor: 'pointer' }} />
                                 ) : (
                                     <div>No Image Available</div>
                                 )}

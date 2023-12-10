@@ -150,27 +150,30 @@ router.delete('/dashboard/:id', async (req, res) => {
 
 // Displaying A User
 router.get('/api/users/:username', (req, res) => {
-    try {
-        console.log("req.params: ", req.params);
-        const userName = req.params.username;  // Corrected this line
-        console.log("username: ", userName);
-
-        database.collection("Users").find({ username: userName }).toArray((err, result) => {
+    try{
+        //Make this for a logged in user
+        //var usrEmail = "john.doe@example.com";
+        const userName = req.params.username;
+        //console.log("req.params:", req.params);
+        
+        database.collection("Users").find({username: userName}).toArray((err, result) => {  // Change 'error' to 'err'
             if (err) {
                 console.error(err);
-                return res.status(500); // Add a response method like .send() or .json() with an error message
+                return res.status(500);//.render('error', { error: err });
             }
-            if (!result.length) { // Changed to check if result array is empty
-                return res.status(404).send({ error: "No user found" }); // Handle the case when no user is found
+            if (!result) {
+                res.render('error', { error: "No items found" });
             }
+
             res.send(result[0]);
         })
-    } catch (error) {
+    }
+    // Fetch all entries in inventory based on the constructed query
+    catch(error){
         console.log("error:", error);
-        res.status(500).send(error); // Send the error with a status code
+        res.send(error);
     }
 });
-
 
 router.post('/api/users', async (req, res) => {
     const updatedUserData = req.body;
@@ -182,7 +185,8 @@ router.post('/api/users', async (req, res) => {
       await usersCollection.updateOne({ _id: ObjectId(updatedUserData._id) }, { $set: updatedUserData.updatedValues });
       //console.log("Updated the data: ", updatedUserData);
       //res.sendStatus(200);
-      res.redirect('/api/users')
+      //res.redirect('/api/users/')
+      res.redirect(`/api/users/${updatedUserData.updatedValues.username}`);
 
     } catch (error) {
 
