@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../../css//Signup.css'; // Import your CSS file for styling
+import '../../css/Signup.css'; // Import your CSS file for styling
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -58,7 +58,7 @@ function SignupPage() {
 
   return (
     <div className="signup-container">
-      <h2>Signup</h2>
+      <h1>Signup</h1>
       <form onSubmit={handleSubmit} className="signup-form">
         <label htmlFor="username">Username:</label>
         <input

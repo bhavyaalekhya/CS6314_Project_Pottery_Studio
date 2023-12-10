@@ -142,11 +142,14 @@ router.delete('/dashboard/:id', async (req, res) => {
 });
 
 // Displaying A User
-router.get('/api/users', function(req, res) {
+router.get('/api/users/:username', (req, res) => {
     try{
         //Make this for a logged in user
-        var usrEmail = "john.doe@example.com";
-        database.collection("Users").find({email: usrEmail}).toArray((err, result) => {  // Change 'error' to 'err'
+        //var usrEmail = "john.doe@example.com";
+        const { userName } = req.params;
+        console.log("username: ", userName);
+        console.log("req.params: ", req.params);
+        database.collection("Users").find({username: userName}).toArray((err, result) => {  // Change 'error' to 'err'
             if (err) {
                 console.error(err);
                 return res.status(500);//.render('error', { error: err });

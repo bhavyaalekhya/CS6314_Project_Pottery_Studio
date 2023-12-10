@@ -15,26 +15,43 @@ function Header() {
         </Link>
       </div>
       <nav className="nav-links">
-        <Link to="/" className="nav-link">
-          Home
-        </Link>
-        <Link to="/gallery" className="nav-link">
-          Gallery
-        </Link>
-        <Link to="/users" className="nav-link">
-          Profile
-        </Link>
-        <Link to="/admin" className="nav-link">
-          Admin
-        </Link>
+      {currentUser && (
+          <div className='userInfo_container'><span className="userInfo"> Hello {currentUser?.username}!!</span></div>
+        )}
         
           {currentUser ? (
-            <div className='userInfo_container'><span className="userInfo"> Hello {currentUser?.username}!!</span>
-            <button className="logoutbtn nav-link" onClick={()=>{console.log(logout())}}>Logout</button></div>
+            <div className='userInfo_container'>
+              <Link to="/" className="nav-link">
+                Home
+              </Link>
+              <Link to="/contact" className="nav-link">
+                Contact Us
+              </Link>
+              <Link to="/users/${currentUser.username}" className="nav-link">
+                Profile
+              </Link>
+            {/* Render "Admin" link only if the user is an admin */}
+            {currentUser && currentUser.username === 'admin' && (
+              <Link to="/admin" className="nav-link">
+                Admin
+              </Link>
+            )}
+            <Link to="/" className="nav-link" onClick={()=>{console.log(logout())}}>
+                Logout
+              </Link>
+            {/*<button className="logoutbtn nav-link" onClick={()=>{console.log(logout())}}>Logout</button>*/}
+            </div>
           ) : (
-            <div className='userInfo_container'><Link className="link" to="/login">
+            <div className='userInfo_container'>
+              <Link to="/" className="nav-link">
+                Home
+              </Link>
+              <Link to="/contact" className="nav-link">
+                Contact US
+              </Link>
+              <Link className="nav-link" to="/login">
               Login
-            </Link>
+            </Link> {' '}
             <Link to="/signup" className="nav-link">
             Signup
           </Link>

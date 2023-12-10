@@ -29,8 +29,8 @@ const bcrypt =require("bcrypt");
    }
 
  const login = (req, res) => {
-   const { username, email, phone, address, password } = req.body;
-    console.log(req.body);
+   const { username, email, phone, address, password, role } = req.body;
+    //console.log(req.body);
     User.findOne({ username: username }).then((user)=>{
       if (!user || user==null) {
          return res.status(200).json({data:false});
@@ -56,6 +56,7 @@ const bcrypt =require("bcrypt");
 
 
  const logout = (req, res) => {
+   res.redirect("/dashboard")
     
 }
 

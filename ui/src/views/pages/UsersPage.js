@@ -1,21 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import '../../css/UsersPage.css';
+import { useContext } from "react";
+import { AuthContext } from "../../context/authContext.js";
 
 const UsersPage = () => {
   const API_URL = 'http://localhost:5000/api/users';
+  const { currentUser } = useContext(AuthContext);
 
   const [userData, setUserData] = useState({});
 
   useEffect(() => {
-    fetch(API_URL)
-      .then((response) => response.json())
-      .then((data) => {
-        setUserData(data);
-      })
-      .catch((error) => {
-        console.error('Error fetching user data:', error);
-      });
-  }, []);
+    if (currentUser) {
+      const apiUrlForCurrentUser = `${API_URL}/${currentUser.username}`;
+  
+      fetch(apiUrlForCurrentUser)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then((data) => {
+          setUserData(data);
+        })
+        .catch((error) => {
+          console.error('Error fetching user data:', error);
+          // Handle the error, show a message, or redirect the user
+        });
+    }
+  }, [API_URL, currentUser]);
 
   const handleUpdateUser = async () => {
     try {

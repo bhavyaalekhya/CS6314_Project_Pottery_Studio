@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../../context/authContext";
+import '../../css/Login.css';
 
 function LoginPage() {
 const [formData, setFormData] = useState({
@@ -39,6 +40,7 @@ const handleSubmit = async (e) =>{
           <h3 className="Auth-form-title">Sign In</h3>
           <div className="form-group mt-3">
             <input
+              className="cust-form-control"
               type="text"
               id="username"
               name="username"
@@ -50,6 +52,7 @@ const handleSubmit = async (e) =>{
           </div>
           <div className="form-group mt-3">
             <input
+              className="cust-form-control"
               type="password"
               id="password"
               name="password"
@@ -60,7 +63,7 @@ const handleSubmit = async (e) =>{
             />
           </div>
           <div className="d-grid gap-2 mt-3">
-            <button type="submit" className="btn btn-primary">
+            <button type="submit" className="login-button">
               Submit
             </button>
           </div>
