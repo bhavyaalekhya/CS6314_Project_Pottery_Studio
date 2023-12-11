@@ -36,7 +36,7 @@ router.get('/', function(req,res){
 // Displaying Inventory
 router.get('/dashboard', function(req, res) {
     try{
-        console.log("DB Connected");
+        //console.log("DB Connected");
         database.collection("Inventory").find({}).toArray((err, result) => {  // Change 'error' to 'err'
             if (err) {
               
