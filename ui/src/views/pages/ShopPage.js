@@ -19,6 +19,8 @@ function ShopPage() {
     const cartContext = useContext(CartContext);
 
     const [userData, setUserData] = useState({});
+
+    const [searchText, setSearchText] = useState('');
     //const username = currentUser.username;
 
     
@@ -68,8 +70,8 @@ function ShopPage() {
     }, []);
 
     const filteredProducts = Object.entries(uniqueData).reduce((acc, [type, products]) => {
-        const filtered = products.filter(product => 
-            product.name.toLowerCase().includes(searchQuery.toLowerCase())
+        const filtered = products.filter(cartItem => 
+            cartItem.name.toLowerCase().includes(searchText.toLowerCase())
         );
 
         if (selectedType === 'all' || type === selectedType) {
@@ -83,13 +85,9 @@ function ShopPage() {
         setSelectedType(type);
     };
 
-    const handleCartIconClick = () => {
-        navigate(`/cart`);
-    };
-
-    const resetFilter = () => {
-        setSelectedType('all');
-        setSearchQuery('');
+    // Handle search text change
+    const handleSearchChange = (event) => {
+        setSearchText(event.target.value);
     };
 
     // Check if the user is logged in and has the "admin" role
@@ -126,6 +124,14 @@ function ShopPage() {
             </div>
             <div className="search-filter">
                 <div className="row">
+                    <div className="col-md-4">
+                    <input
+                        type="text"
+                        placeholder="Search by item name..."
+                        value={searchText}
+                        onChange={handleSearchChange}
+                    />
+                    </div>
                     <div className="col-md-4">
                         <select className="form-control" value={selectedType} onChange={(e) => setSelectedType(e.target.value)}>
                             <option value="None"></option>
