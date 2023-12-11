@@ -141,7 +141,7 @@ function ShopPage() {
                     <div className="col-md-4">
                         <select className="form-control" value={selectedType} onChange={(e) => setSelectedType(e.target.value)}>
                             <option value="None"></option>
-                            <option value="all">All Categories</option>
+                            <option value="all">All</option>
                             {Object.keys(uniqueData).map((type) => (
                                 <option key={type} value={type}>{type}</option>
                             ))}

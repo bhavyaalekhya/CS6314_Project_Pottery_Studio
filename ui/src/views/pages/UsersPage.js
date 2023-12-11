@@ -47,7 +47,11 @@ const UsersPage = () => {
       if (phoneElement.innerText !== userData.phone) {
         updatedValues.phone = phoneElement.innerText;
       }
-
+      
+      const emailElement = document.getElementById('emailField');
+      if (emailElement.innerText !== userData.email) {
+        updatedValues.email = emailElement.innerText;
+      }
       var sendVals = { "_id": _id, "updatedValues": updatedValues };
       // Send only the updated values to the server
       const response = await fetch(API_URL, {
@@ -79,7 +83,6 @@ const UsersPage = () => {
             <span
               id="nameField"
               className="editable"
-              contentEditable
             >
               {userData.username}
             </span>
@@ -89,7 +92,7 @@ const UsersPage = () => {
             <strong className="textFields" id="email">Email:</strong>{' '} 
             <span 
               className="editable"
-              id="emailId"
+              id="emailField"
               contentEditable
             >
               {userData.email}

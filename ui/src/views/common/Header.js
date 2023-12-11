@@ -12,7 +12,7 @@ function Header() {
     <header className="header-container">
       <div className="logo-container">
         <Link to="/" className="logo">
-          Pottery Studio
+          Refined Pottery
         </Link>
       </div>
       <nav className="nav-links">

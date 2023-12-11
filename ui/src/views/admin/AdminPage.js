@@ -32,6 +32,7 @@ const ProductDesc = function ({productInfo, buttonFunc, handleInventory}) {
 
   return (
     <div>
+      <h3>Edit Product </h3>
       <p>Name: {productInfo.name}</p>
       <p>Desc: {productInfo.description}</p>
       <p>Type: {productInfo.type}</p>
@@ -204,6 +205,8 @@ const ProductAddForm = function ({currMaxProdId, handleInventory}) {
   // Displays the product form
   return (
     <div className="container">
+      <hr></hr>
+      <h2>Add New Product</h2>
       <form>
         <div>
         <label htmlFor="name">Name: </label>{' '}
