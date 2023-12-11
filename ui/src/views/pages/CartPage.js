@@ -7,7 +7,7 @@ import { AuthContext } from "../../context/authContext.js";
 function CartPage() {
     const navigate = useNavigate();
     const location = useLocation();
-    const { cartItems: initialCartItems, clearCart, removeFromCart } = useContext(CartContext);
+    const { cartItems: initialCartItems, clearCart, removeFromCart, updateOnCheckOut } = useContext(CartContext);
     const [cartItems, setCartItems] = useState(initialCartItems || []);
 
     useEffect(() => {
@@ -19,8 +19,10 @@ function CartPage() {
         setCartItems(currentItems => currentItems.filter(item => item.productId !== productId));
     };
 
-    const handleCheckOut = () => {
+    const handleCheckOut = (cartItems) => {
         alert("You have successfully checked out");
+        updateOnCheckOut(cartItems);
+        clearCart();
         navigate('/');
     };
 
@@ -72,7 +74,7 @@ function CartPage() {
             </div>
             <div className='checkout-container row'>
                 <div className='col-sm-4'>
-                    <button className='btn btn-primary btn-lg checkout-btn' onClick={handleCheckOut}>Checkout</button>
+                    <button className='btn btn-primary btn-lg checkout-btn' onClick={() => handleCheckOut(cartItems)}>Checkout</button>
                 </div>
                 <div className='col-sm-4'>
                     <button className='btn btn-danger btn-lg cancel-btn' onClick={handleCancel}>Cancel Order</button>

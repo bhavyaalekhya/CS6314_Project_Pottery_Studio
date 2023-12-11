@@ -27,7 +27,22 @@ const CartProvider = ({ children }) => {
         fetchCartInfo();
     }, [user]);
     
-
+    const updateCartInfoInDB = async (cart) => {
+        if (!user) return;
+        console.log("Cart Info in DB: " + cart);
+        try {
+            await fetch(`http://localhost:5000/api/users/${user.username}/cartInfo`, {
+                method: 'PUT', // or 'POST', depending on your API
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ cart })
+            });
+        } catch (error) {
+            console.error("Error updating cart in DB:", error);
+        }
+    };
+    
     const addToCart = (product, quantity) => {
         // Find the index of the product in the cart
         const existingProductIndex = cartItems.findIndex(item => item.productId === product.productId);
@@ -69,25 +84,52 @@ const CartProvider = ({ children }) => {
         updateCartInfoInDB([]); // Function to update the cartInfo in the database
     };
 
-    const updateCartInfoInDB = async (cart) => {
-        if (!user) return;
-    
+    const updateOnCheckOut = async (cartItems) => {
         try {
-            await fetch(`http://localhost:5000/api/users/${user.username}/cartInfo`, {
-                method: 'PUT', // or 'POST', depending on your API
+            const response = await fetch(`http://localhost:5000/dashboard`, {
+                method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ cart })
+                }
             });
+            if (!response.ok) {
+                throw new Error(`Error: ${response.statusText}`);
+            }
+            const productsFromApi = await response.json();
+    
+            const updatedQuantities = cartItems.map(item => {
+                const productFromApi = productsFromApi.find(p => p.productId === item.productId);
+                if (!productFromApi) {
+                    throw new Error(`Product with ID ${item.productId} not found in API`);
+                }
+                return {
+                    ...item,
+                    quantity: productFromApi.quantity - item.quantity
+                };
+            });
+    
+            await Promise.all(updatedQuantities.map(async (item) => {
+                const updateResponse = await fetch(`http://localhost:5000/dashboard/${item.productId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ quantity: item.quantity })
+                });
+                if (!updateResponse.ok) {
+                    throw new Error(`Error updating product with ID ${item.productId}`);
+                }
+            }));
+    
+            console.log('All products updated successfully');
         } catch (error) {
-            console.error("Error updating cart in DB:", error);
+            console.error('Failed to update products:', error);
         }
-    };
+    }
     
 
     return (
-        <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, clearCart }}>
+        <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, clearCart, updateOnCheckOut }}>
             {children}
         </CartContext.Provider>
     );
