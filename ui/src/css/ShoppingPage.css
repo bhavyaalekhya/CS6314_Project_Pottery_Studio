@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Amatic+SC&family=Cinzel&family=WindSong&display=swap');
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Adjust the number 3 to the number of items you have */
+    gap: 20px;
+    margin: 20px;
+}
+
+.grid-item {
+    display: flex;
+    flex-direction: column; /* Stack the flex items vertically */
+    justify-content: center; /* Vertically center the content in the main axis */
+    align-items: center; /* Horizontally center the content in the cross axis */
+    padding: 20px;
+    height: 100%; /* You might need to adjust the height based on your content */
+    margin-bottom: 15px;
+    border-radius: 6px; /* Rounded corners */
+    box-shadow: inset;
+}
+
+.grid-item img {
+    max-width: 100%;
+    height: auto;
+    cursor: pointer; /* Assuming you want the cursor to change on hover over the image */
+}
+
+.shop-grid {
+    text-align: center; /* Center the text horizontally */
+    margin: 15px;
+    font-weight: bold;
+}
+
+.prodImg {
+    border-radius: 8px;
+}
+
+.search-filter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2%;
+}

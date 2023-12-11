@@ -65,7 +65,7 @@ function HomePage() {
               className="carousel-image"
             />
             <div className="carousel-caption">
-              <h1>Welcome to Our Pottery Studio</h1>
+              <h1>Welcome to Refined Pottery</h1>
               <p>Elevate your living with the charm of handmade pottery. Explore our collection and bring home a touch of artistry</p>
             </div>
           </div>
@@ -174,7 +174,7 @@ function HomePage() {
       </div>
       <div className="shop-button-container">
           {/* Use Link to navigate to the Shopping page */}
-          <Link to="/Shopping">
+          <Link to="/shop">
             <button className="shop-button">Loved our Pottery? Shop yours!</button>
           </Link>
         </div>

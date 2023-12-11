@@ -47,7 +47,11 @@ const UsersPage = () => {
       if (phoneElement.innerText !== userData.phone) {
         updatedValues.phone = phoneElement.innerText;
       }
-
+      
+      const emailElement = document.getElementById('emailField');
+      if (emailElement.innerText !== userData.email) {
+        updatedValues.email = emailElement.innerText;
+      }
       var sendVals = { "_id": _id, "updatedValues": updatedValues };
       // Send only the updated values to the server
       const response = await fetch(API_URL, {
@@ -72,30 +76,30 @@ const UsersPage = () => {
     <div className='first'>
     <div className="container">
       <div className="users-container">
-        <h1>User Profile</h1>
         <div className="user-info">
+          <h1>User Profile</h1>
           <p>
-            <strong id="name">Name:</strong>{' '}
+            <strong className="textFields" id="name">Name:</strong>{' '}
             <span
               id="nameField"
               className="editable"
-              contentEditable
             >
               {userData.username}
             </span>
           </p>
+
           <p>
-            <strong id="email">Email:</strong> 
+            <strong className="textFields" id="email">Email:</strong>{' '} 
             <span 
               className="editable"
-              id="emailId"
+              id="emailField"
               contentEditable
             >
               {userData.email}
             </span>
           </p>
           <p>
-            <strong>Address:</strong>{' '}
+            <strong className="textFields">Address:</strong>{' '}
             <span
               className="editable"
               id="addressField"
@@ -105,7 +109,7 @@ const UsersPage = () => {
             </span>
           </p>
           <p>
-            <strong>Phone Number:</strong>{' '}
+            <strong className="textFields">Phone Number:</strong>{' '}
             <span
               className="editable"
               id="phoneField"

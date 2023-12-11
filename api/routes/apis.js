@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var Mongoclient = require("mongodb").MongoClient;
+const { MongoClient } = require('mongodb');
 var ObjectId = require("mongodb").ObjectId;
 const { app, db } = require('../server.js');
 const { register, login, logout }=require("../controllers/auth.js") ;
@@ -12,10 +12,16 @@ var CONNECTION_STRING = "mongodb+srv://root:root@pottery-studio.edqxxug.mongodb.
 var DATABASENAME = "studioDb";
 var database;
 
-Mongoclient.connect(CONNECTION_STRING, (error,client) => {
+const client = new MongoClient(CONNECTION_STRING);
+
+client.connect()
+    .then(() => {
         database = client.db(DATABASENAME);
-        //console.log("Mongo DB Connection Successful");
-})
+        console.log("Mongo DB Connection Successful");
+    })
+    .catch(error => {
+        console.error('Error connecting to MongoDB', error);
+    });
 
 router.post("/register", register);
 router.post("/login", login);
@@ -30,6 +36,7 @@ router.get('/', function(req,res){
 // Displaying Inventory
 router.get('/dashboard', function(req, res) {
     try{
+        console.log("DB Connected");
         database.collection("Inventory").find({}).toArray((err, result) => {  // Change 'error' to 'err'
             if (err) {
               
@@ -75,13 +82,13 @@ router.get('/dashboard/:id', function(req, res) {
 router.put('/dashboard/:id', async (req, res) => {
     try {
         // Get the updated fields and the id
-        const { name, description, type, count, imgPath, imgDescription } = req.body;
+        const { name, description, type, count, price, imgPath, imgDescription } = req.body;
 
         console.log(req.params.id + ", " + name + ", update");
   
         // Attempt to update the selected product
         let productUpdate = database.collection("Inventory").updateOne({ "_id" : ObjectId(req.params.id) }, { $set: { 
-            description: description, name: name, type: type, count: count,
+            description: description, name: name, type: type, count: count, price: price,
             image: { path: imgPath, description: imgDescription } } });
         
         // If the attempt is successful, send the update
@@ -98,13 +105,14 @@ router.put('/dashboard/:id', async (req, res) => {
 router.post('/dashboard', async (req, res) => {
     try {
         // Get the new fields and create the new product object
-        const { productId, name, description, type, count, imgPath, imgDescription } = req.body;
+        const { productId, name, description, type, count,  price, imgPath, imgDescription } = req.body;
         const newProduct = {
             productId: productId,
             description: description,
             name: name,
             count: count,
             type: type,
+            price: price,
             image:
             {
                 path: imgPath,
@@ -190,5 +198,44 @@ router.post('/api/users', async (req, res) => {
       console.log("Done!")
     }
   }); 
+
+  router.get('/api/users/:username/cartInfo', async (req, res) => {
+    try {
+        const username = req.params.username;
+        const user = await database.collection("Users").findOne({ username: username });
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+        res.json(user.cartInfo || []);
+    } catch (error) {
+        console.error('Error fetching cart:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+// Update user's cart information
+router.put('/api/users/:username/cartInfo', async (req, res) => {
+    try {
+        const username = req.params.username;
+        const cartInfo = req.body.cart; // Assuming cart info is sent in the body
+        await database.collection("Users").updateOne({ username: username }, { $set: { cartInfo: cartInfo } });
+        res.json({ message: "Cart updated successfully" });
+    } catch (error) {
+        console.error('Error updating cart:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+// Clear user's cart information
+router.delete('/api/users/:username/cartInfo', async (req, res) => {
+    try {
+        const username = req.params.username;
+        await database.collection("Users").updateOne({ username: username }, { $set: { cartInfo: [] } });
+        res.json({ message: "Cart cleared successfully" });
+    } catch (error) {
+        console.error('Error clearing cart:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 
 module.exports = router;

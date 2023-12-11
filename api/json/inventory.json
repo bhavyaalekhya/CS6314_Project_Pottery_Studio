@@ -5,8 +5,9 @@
       "name": "Artisan Vase",
       "count": 10,
       "type": "Vase",
+      "price": 25.5,
       "image": {
-        "path": "../public/images/vase1.jpg",
+        "path": "./images/vase1.jpg",
         "description": "Image of the Artisan Vase"
       }
     },
@@ -16,8 +17,9 @@
       "name": "Rustic Mugs Set",
       "count": 5,
       "type": "Mug",
+      "price": 15.73,
       "image": {
-        "path": "../public/images/mugs.jpg",
+        "path": "./images/mug.jpg",
         "description": "Image of the Rustic Mugs Set"
       }
     },
@@ -27,8 +29,9 @@
       "name": "Decorative Plate",
       "count": 8,
       "type": "Plate",
+      "price": 9.95,
       "image": {
-        "path": "../public/images/plate1.jpg",
+        "path": "./images/plate.jpg",
         "description": "Image of the Decorative Plate"
       }
     }

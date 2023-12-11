@@ -32,10 +32,12 @@ const ProductDesc = function ({productInfo, buttonFunc, handleInventory}) {
 
   return (
     <div>
+      <h3>Edit Product </h3>
       <p>Name: {productInfo.name}</p>
       <p>Desc: {productInfo.description}</p>
       <p>Type: {productInfo.type}</p>
       <p>Count: {productInfo.count}</p>
+      <p>Product Price: {productInfo.price}</p>
       <p>Image Path: {productInfo.image.path}</p>
       <p>Image Desc: {productInfo.image.description}</p>
       <button className="button edit-button" onClick={buttonFunc}>Edit</button>
@@ -52,6 +54,7 @@ const ProductEditForm = function ({productInfo, buttonFunc, submitFunc}) {
     description: productInfo.description,
     type: productInfo.type,
     count: productInfo.count,
+    price: productInfo.price,
     imgPath: productInfo.image.path,
     imgDescription: productInfo.image.description,
   });
@@ -89,6 +92,7 @@ const ProductEditForm = function ({productInfo, buttonFunc, submitFunc}) {
           description: productData.description,
           type: productData.type,
           count: productData.count,
+          price: productData.price,
           image:
           { path: productData.imgPath,
             description: productData.imgDescription}
@@ -128,6 +132,10 @@ const ProductEditForm = function ({productInfo, buttonFunc, submitFunc}) {
         <input type="text" id="count" name="count"
           value={productData.count} onChange={handleChange} required /></div>
 
+        <div><label htmlFor="price">Price: </label>{'  '}
+        <input type="text" id="price" name="price"
+          value={productData.price} onChange={handleChange} required /></div>
+
         <div><label htmlFor="imgPath">Image Path: </label>{'  '}
         <input type="text" id="imgPath" name="imgPath"
           value={productData.imgPath} onChange={handleChange} required /></div>
@@ -150,6 +158,7 @@ const ProductAddForm = function ({currMaxProdId, handleInventory}) {
     description: '',
     type: '',
     count: '',
+    price: '',
     imgPath: '',
     imgDescription: '',
   });
@@ -196,6 +205,8 @@ const ProductAddForm = function ({currMaxProdId, handleInventory}) {
   // Displays the product form
   return (
     <div className="container">
+      <hr></hr>
+      <h2>Add New Product</h2>
       <form>
         <div>
         <label htmlFor="name">Name: </label>{' '}
@@ -216,6 +227,11 @@ const ProductAddForm = function ({currMaxProdId, handleInventory}) {
         <label htmlFor="count">Count: </label>{' '}
         <input type="text" id="count" name="count"
           value={productData.count} onChange={handleChange} required />
+        </div>
+        <div>
+        <label htmlFor="price">Price: </label>{' '}
+        <input type="text" id="price" name="price"
+          value={productData.price} onChange={handleChange} required />
         </div>
         <div>
         <label htmlFor="imgPath">Image Path: </label>{' '}
