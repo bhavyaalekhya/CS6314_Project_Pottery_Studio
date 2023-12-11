@@ -15,6 +15,3 @@ node_modules
 
 #ignore package-lock
 package-lock.json
-
-#ignore video files
-*.mp4
