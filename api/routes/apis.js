@@ -214,7 +214,7 @@ router.post('/api/users', async (req, res) => {
 });
 
 // Update user's cart information
-router.put('/api/users/:username/cart', async (req, res) => {
+router.put('/api/users/:username/cartInfo', async (req, res) => {
     try {
         const username = req.params.username;
         const cartInfo = req.body.cart; // Assuming cart info is sent in the body
@@ -227,7 +227,7 @@ router.put('/api/users/:username/cart', async (req, res) => {
 });
 
 // Clear user's cart information
-router.delete('/api/users/:username/cart', async (req, res) => {
+router.delete('/api/users/:username/cartInfo', async (req, res) => {
     try {
         const username = req.params.username;
         await database.collection("Users").updateOne({ username: username }, { $set: { cartInfo: [] } });

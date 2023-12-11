@@ -73,7 +73,7 @@ const CartProvider = ({ children }) => {
         if (!user) return;
     
         try {
-            await fetch(`http://localhost:5000/api/users/${user.id}/cart`, {
+            await fetch(`http://localhost:5000/api/users/${user.username}/cartInfo`, {
                 method: 'PUT', // or 'POST', depending on your API
                 headers: {
                     'Content-Type': 'application/json',
