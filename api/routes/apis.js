@@ -199,43 +199,4 @@ router.post('/api/users', async (req, res) => {
     }
   }); 
 
-  router.get('/api/users/:username/cartInfo', async (req, res) => {
-    try {
-        const username = req.params.username;
-        const user = await database.collection("Users").findOne({ username: username });
-        if (!user) {
-            return res.status(404).json({ error: "User not found" });
-        }
-        res.json(user.cartInfo || []);
-    } catch (error) {
-        console.error('Error fetching cart:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
-
-// Update user's cart information
-router.put('/api/users/:username/cartInfo', async (req, res) => {
-    try {
-        const username = req.params.username;
-        const cartInfo = req.body.cart; // Assuming cart info is sent in the body
-        await database.collection("Users").updateOne({ username: username }, { $set: { cartInfo: cartInfo } });
-        res.json({ message: "Cart updated successfully" });
-    } catch (error) {
-        console.error('Error updating cart:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
-
-// Clear user's cart information
-router.delete('/api/users/:username/cartInfo', async (req, res) => {
-    try {
-        const username = req.params.username;
-        await database.collection("Users").updateOne({ username: username }, { $set: { cartInfo: [] } });
-        res.json({ message: "Cart cleared successfully" });
-    } catch (error) {
-        console.error('Error clearing cart:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
-
 module.exports = router;

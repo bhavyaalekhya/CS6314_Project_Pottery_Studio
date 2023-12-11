@@ -41,7 +41,7 @@ function CartPage() {
         <div className='cart-container'>
             <div className='row'>
                 <h1 className='title'>Shopping Cart</h1>
-                <h2 className='price'>Total Price: ${cartItems.reduce((sum, item) => sum + item.totalPrice, 0).toFixed(2)}</h2>
+                <h2 className='price'>Total Price: ${cartItems && cartItems.length > 0 ? (cartItems.reduce((sum, item) => sum + item.totalPrice, 0).toFixed(2)) : (0)}</h2>
                 <div className='cart-items'>
                     { cartItems && cartItems.length > 0 ? (
                         cartItems.map((item, index) => (
