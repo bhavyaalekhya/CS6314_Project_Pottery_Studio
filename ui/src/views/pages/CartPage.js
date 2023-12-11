@@ -38,7 +38,8 @@ function CartPage() {
     return (
         <div className='cart-container'>
             <div className='row'>
-                <h1>Shopping Cart</h1>
+                <h1 className='title'>Shopping Cart</h1>
+                <h2 className='price'>Total Price: ${cartItems.reduce((sum, item) => sum + item.totalPrice, 0)}</h2>
                 <div className='cart-items'>
                     { cartItems && cartItems.length > 0 ? (
                         cartItems.map((item, index) => (
@@ -51,10 +52,9 @@ function CartPage() {
                                         <div className='row item-details'>
                                             <p>{item.name}</p>
                                             <p className="cart-item">Quantity: {item.quantity}</p>
+                                            <p className='cart-price'>Price Per Item: ${item.price}</p>
                                             {console.log(item.productId)}
-                                            <div className='remove-item'>
-                                                <p className="cart-item"><a href='/cart' onClick={() => handleRemoveItem(item.productId)}>Delete Item</a></p>
-                                            </div>
+                                            <button className="btn btn-primary btn-item" onClick={() => handleRemoveItem(item.productId)}>Delete Item</button>
                                         </div>
                                     </div>
                                 </div>

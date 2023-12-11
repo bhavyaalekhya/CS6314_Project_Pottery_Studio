@@ -49,6 +49,7 @@ function ProductPage() {
 							<div className="col">
 								<div className='row'>
 									<p>{product.description}</p>
+									<p>Price Per Item: ${product.price}</p>
 								</div>
 								<div className='row'>
 									<div className='form-group'>

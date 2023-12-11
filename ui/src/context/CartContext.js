@@ -12,12 +12,13 @@ const CartProvider = ({ children }) => {
             if (!user) return;
     
             try {
-                const response = await fetch(`http://localhost:5000/api/users/${user.id}/cart`);
+                const response = await fetch(`http://localhost:5000/api/users/${user.username}/cartInfo`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
                 const data = await response.json();
                 setCartItems(data.cart);
+                console.log("User cart" + JSON.stringify(cartItems));
             } catch (error) {
                 console.error("Error fetching cart data:", error);
             }
@@ -28,10 +29,34 @@ const CartProvider = ({ children }) => {
     
 
     const addToCart = (product, quantity) => {
-        const newCartItems = [...cartItems, { ...product, quantity }];
+        // Find the index of the product in the cart
+        const existingProductIndex = cartItems.findIndex(item => item.productId === product.productId);
+    
+        let newCartItems;
+    
+        if (existingProductIndex !== -1) {
+            // Product exists in the cart, update its quantity and total price
+            newCartItems = cartItems.map((item, index) => {
+                if (index === existingProductIndex) {
+                    const updatedQuantity = Number(item.quantity) + Number(quantity);
+                    return { ...item, quantity: updatedQuantity, totalPrice: updatedQuantity * item.price };
+                }
+                return item;
+            });
+        } else {
+            // Product does not exist in the cart, add it as a new item with total price
+            newCartItems = [...cartItems, { ...product, quantity, totalPrice: quantity * product.price }];
+        }
+    
+        // Calculate the total price for all products in the cart
+        const totalCartPrice = newCartItems.reduce((sum, item) => sum + item.totalPrice, 0);
+    
         setCartItems(newCartItems);
+        console.log("New Cart: " + JSON.stringify(newCartItems));
+        console.log("Total Cart Price: " + totalCartPrice);
         updateCartInfoInDB(newCartItems); // Function to update the cartInfo in the database
     };
+    
 
     const removeFromCart = (productId) => {
         const updatedCartItems = cartItems.filter(item => item.productId !== productId);
