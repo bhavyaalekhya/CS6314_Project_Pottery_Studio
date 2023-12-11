@@ -34,6 +34,10 @@ function ProductPage() {
 		navigate('/shop');
 	};
 
+	const handleGoToCart = () => {
+		navigate('/cart');
+	};
+
 	const imagePath = '../.' + product.image?.path;
 
 	return (
@@ -55,10 +59,11 @@ function ProductPage() {
 									<div className='form-group'>
 										<label>Quantity: </label>
 										<input className="form-control" type="number" value={quantity} onChange={handleQuantityChange} min="1" max="3"/>
+										<button className="btn add-to-cart" onClick={handleAddToCart}>Add to Cart</button>  
 									</div>
 									<div className='row'>
 										<div className='col'>
-											<button className="btn add-to-cart" onClick={handleAddToCart}>Add to Cart</button>  
+											<button className='btn return-page' onClick={handleGoToCart}>Go to Cart</button>
 											<button className='btn return-page' onClick={handleReturn}>Return to Page</button>
 										</div>	
 									</div>

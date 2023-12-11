@@ -87,8 +87,14 @@ function ShopPage() {
 
     // Handle search text change
     const handleSearchChange = (event) => {
-        setSearchText(event.target.value);
+        if (event==""){
+            setSearchText("")
+        }
+        else{
+        setSearchText(event.target.value);}
     };
+
+    
 
     // Check if the user is logged in and has the "admin" role
     if (!currentUser) {
@@ -142,7 +148,12 @@ function ShopPage() {
                         </select>
                     </div>
                     <div className="col-md-4">
-                        <button className="btn btn-primary reset-button" onClick={() => setSelectedType("all")}>Reset Filter</button>
+                    <button className="btn btn-primary reset-button"
+                            onClick={() => {
+                                setSelectedType("all");
+                                handleSearchChange("");
+                            }}>Reset Filter
+                        </button>
                     </div>
                 </div>
             </div>
