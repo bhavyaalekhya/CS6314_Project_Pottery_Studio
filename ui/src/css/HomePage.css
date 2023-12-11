@@ -80,7 +80,6 @@ td {
   text-align: center;
 }
 
-
 .contact-us-section {
   /*background-color:  #9b6036;  /* Brown background color */
   /*color: #fff;                /* White text color */
@@ -106,4 +105,41 @@ td {
 /* Style the icons */
 .contact-us-section svg {
   margin-right: 8px;
+}
+
+@media (max-width: 640px) {
+  .carousel-item p{
+    font-size: 18px;
+  }
+  .search-filter{
+    max-width: 70%;
+    margin: auto;
+  }
+  .carousels-container{
+    flex-direction: column;
+  }
+  .carousels-container .carousel.slide{
+    width: 100%;
+  }
+ 
+  .userInfo_container a[href="/contact"]{
+    display: none;
+  }
+  .userInfo{
+    display: none;
+  }
+
+  .carousel-caption h1 {
+    font-size: medium;
+  }
+
+  .carousel-caption p {
+    font-size: small;
+  }
+ 
+}
+
+.carousel-item img{
+  width: 100%;
+ 
 }
